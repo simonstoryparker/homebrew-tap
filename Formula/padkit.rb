@@ -28,8 +28,8 @@ class Padkit < Formula
 
   test do
     ENV["PADKIT_HOME"] = testpath/"settings"
-    system bin/"padkit", "setup", "--browser", "chrome", "--profile", "Default",
-           "--site", "example.com", "--no-open"
+    system "sh", "-c", "#{bin}/padkit setup --browser chrome --profile Default " \
+                       "--site example.com --no-open < /dev/null"
     manifest = JSON.parse((testpath/"settings/chrome-Default/extension/manifest.json").read)
     assert_equal ["https://example.com/*"], manifest["host_permissions"]
     assert_path_exists libexec/"native/build/PowerAInput"
